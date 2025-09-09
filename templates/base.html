@@ -131,6 +131,7 @@
         max-height: 70px;
         overflow: hidden;
         transition: max-height 0.4s ease;
+        margin-top: 45px; /* Space for the mobile cart button */
       }
 
       nav.expanded {
@@ -145,12 +146,17 @@
         display: none;
       }
 
+      /* Hide the cart link in the nav on mobile */
+      #cart-link {
+        display: none;
+      }
+
       nav.expanded a {
         display: block;
       }
 
       .content {
-        margin-top: 80px;
+        margin-top: 120px; /* Adjusted for mobile cart button + nav */
         padding: 15px;
       }
     }
@@ -159,6 +165,7 @@
     @media (max-width: 480px) {
       nav {
         padding: 12px;
+        margin-top: 40px;
       }
 
       .menu-toggle {
@@ -180,7 +187,7 @@
       }
 
       .content {
-        margin-top: 75px;
+        margin-top: 110px;
         padding: 10px;
       }
     }
@@ -195,6 +202,19 @@
       nav a {
         padding: 8px 12px;
         font-size: 0.95rem;
+      }
+
+      /* Hide mobile cart button on tablet/desktop */
+      .mobile-cart-btn {
+        display: none;
+      }
+    }
+
+    /* Desktop screens */
+    @media (min-width: 1025px) {
+      /* Hide mobile cart button on desktop */
+      .mobile-cart-btn {
+        display: none;
       }
     }
   </style>
@@ -234,7 +254,8 @@
       if (window.innerWidth <= 768 &&
           !nav.contains(event.target) &&
           event.target !== toggleBtn &&
-          event.target !== mobileCartBtn) {
+          event.target !== mobileCartBtn &&
+          !mobileCartBtn.contains(event.target)) {
         nav.classList.remove('expanded');
       }
     });
