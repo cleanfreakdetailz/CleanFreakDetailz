@@ -1,0 +1,268 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="cart-container">
+  <h1>Your Cart</h1>
+  
+  <div id="cart-items" class="cart-items">
+    <!-- Cart items will be loaded here by JavaScript -->
+    <div class="empty-cart-message">
+      <p>Your cart is empty</p>
+      <a href="{{ url_for('packages') }}" class="cta-btn">Browse Packages</a>
+    </div>
+  </div>
+  
+  <div class="cart-actions">
+    <a href="{{ url_for('packages') }}" class="cart-btn secondary">Continue Shopping</a>
+    <a href="{{ url_for('checkout') }}" class="cart-btn primary" id="checkout-btn">Proceed to Checkout</a>
+  </div>
+</div>
+
+<style>
+.cart-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px 15px;
+}
+
+.cart-items {
+  margin-bottom: 30px;
+}
+
+.cart-item {
+  display: flex;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  margin-bottom: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+}
+
+.cart-item-image {
+  width: 100px;
+  min-width: 100px;
+  background: rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+}
+
+.cart-item-image img {
+  max-width: 100%;
+  max-height: 80px;
+  object-fit: contain;
+}
+
+.cart-item-info {
+  flex: 1;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.cart-item-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+
+.cart-item-name {
+  font-weight: bold;
+  margin-bottom: 5px;
+  font-size: 1.1rem;
+}
+
+.cart-item-price {
+  color: #4CAF50;
+  font-weight: bold;
+}
+
+.cart-item-remove {
+  background: #ff4757;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s;
+  align-self: flex-start;
+}
+
+.cart-item-remove:hover {
+  background: #ff2e43;
+}
+
+.empty-cart-message {
+  text-align: center;
+  padding: 40px 0;
+}
+
+.empty-cart-message p {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+.cart-actions {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.cart-btn {
+  padding: 12px 20px;
+  border-radius: 4px;
+  text-decoration: none;
+  text-align: center;
+  flex: 1;
+  transition: all 0.3s;
+}
+
+.cart-btn.primary {
+  background: #4CAF50;
+  color: white;
+}
+
+.cart-btn.secondary {
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.cart-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-2px);
+}
+
+#checkout-btn[disabled] {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.cart-total {
+  text-align: right;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+@media (max-width: 768px) {
+  .cart-actions {
+    flex-direction: column;
+  }
+
+  .cart-item {
+    flex-direction: column;
+  }
+
+  .cart-item-image {
+    width: 100%;
+    height: 120px;
+  }
+
+  .cart-item-image img {
+    max-height: 100px;
+  }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  loadCart();
+
+  // Enable/disable checkout button based on cart items
+  function updateCheckoutButton() {
+    const checkoutBtn = document.getElementById('checkout-btn');
+    const cartItems = document.querySelectorAll('.cart-item');
+
+    if (cartItems.length === 0) {
+      checkoutBtn.style.pointerEvents = 'none';
+      checkoutBtn.style.opacity = '0.5';
+    } else {
+      checkoutBtn.style.pointerEvents = 'auto';
+      checkoutBtn.style.opacity = '1';
+    }
+  }
+
+  function loadCart() {
+    fetch('/api/get-cart')
+      .then(response => response.json())
+      .then(cart => {
+        const cartContainer = document.getElementById('cart-items');
+
+        if (cart.length === 0) {
+          cartContainer.innerHTML = `
+            <div class="empty-cart-message">
+              <p>Your cart is empty</p>
+              <a href="{{ url_for('packages') }}" class="cta-btn">Browse Packages</a>
+            </div>
+          `;
+          updateCheckoutButton();
+          return;
+        }
+
+        let html = '';
+        let total = 0;
+
+        cart.forEach(item => {
+          total += parseFloat(item.price);
+          const imagePath = item.image ? `/static/${item.image}` : '';
+          const imageHtml = item.image ? `
+            <div class="cart-item-image">
+              <img src="${imagePath}" alt="${item.name}">
+            </div>
+          ` : '';
+
+          html += `
+            <div class="cart-item" data-id="${item.id}" data-type="${item.type}">
+              ${imageHtml}
+              <div class="cart-item-info">
+                <div class="cart-item-header">
+                  <div>
+                    <div class="cart-item-name">${item.name}</div>
+                    <div class="cart-item-price">$${item.price}</div>
+                  </div>
+                  <button class="cart-item-remove" onclick="removeFromCart('${item.id}', '${item.type}')">Remove</button>
+                </div>
+              </div>
+            </div>
+          `;
+        });
+
+        html += `
+          <div class="cart-total">
+            <strong>Total: $${total.toFixed(2)}</strong>
+          </div>
+        `;
+
+        cartContainer.innerHTML = html;
+        updateCheckoutButton();
+      });
+  }
+
+  window.removeFromCart = function(id, type) {
+    fetch('/api/remove-from-cart', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ id: id, type: type })
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        loadCart();
+        // Update cart count
+        document.getElementById('cart-count').textContent = data.cart_count;
+      }
+    });
+  };
+  
+  updateCheckoutButton();
+});
+</script>
+{% endblock %}

@@ -10,9 +10,12 @@
     <div class="service-card">
       <div class="service-icon">🐕</div>
       <div class="service-content">
-        <h3>Pet Hair Removal</h3>
-        <div class="price-tag">$25</div>
+        <div class="service-header">
+          <h3>Pet Hair Removal</h3>
+          <div class="price-tag">$25</div>
+        </div>
         <p>Specialized tools to completely remove embedded pet hair from upholstery and carpets</p>
+        <button class="add-to-cart-btn" data-id="pet_hair" data-name="Pet Hair Removal" data-price="25" data-type="extra">Add to Cart</button>
       </div>
     </div>
 
@@ -20,9 +23,12 @@
     <div class="service-card">
       <div class="service-icon">💡</div>
       <div class="service-content">
-        <h3>Headlight Restoration</h3>
-        <div class="price-tag">$45</div>
+        <div class="service-header">
+          <h3>Headlight Restoration</h3>
+          <div class="price-tag">$45</div>
+        </div>
         <p>Professional restoration of cloudy, yellowed headlights to like-new clarity and brightness</p>
+        <button class="add-to-cart-btn" data-id="headlight" data-name="Headlight Restoration" data-price="45" data-type="extra">Add to Cart</button>
       </div>
     </div>
 
@@ -30,9 +36,12 @@
     <div class="service-card full-width">
       <div class="service-icon">✨</div>
       <div class="service-content">
-        <h3>Paint Correction</h3>
-        <div class="price-tag">Starting at $149</div>
+        <div class="service-header">
+          <h3>Paint Correction</h3>
+          <div class="price-tag">Starting at $149</div>
+        </div>
         <p>Professional removal of swirl marks, scratches, and oxidation to restore your paint's original depth and gloss</p>
+        <button class="add-to-cart-btn" data-id="paint_correction" data-name="Paint Correction" data-price="149" data-type="extra">Add to Cart</button>
       </div>
     </div>
   </div>
@@ -123,10 +132,21 @@
   width: 100%;
 }
 
-.service-content h3 {
-  margin: 0 0 12px 0;
+.service-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.service-header h3 {
+  margin: 0;
   font-size: 1.4rem;
   color: #fff;
+  text-align: left;
+  flex: 1;
 }
 
 .price-tag {
@@ -137,15 +157,32 @@
   font-weight: 700;
   font-size: 1.1rem;
   box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
-  display: inline-block;
-  margin-bottom: 15px;
+  white-space: nowrap;
 }
 
 .service-content p {
-  margin: 0;
+  margin: 0 0 15px 0;
   opacity: 0.85;
   font-size: 1rem;
   line-height: 1.6;
+  text-align: left;
+}
+
+.add-to-cart-btn {
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: auto;
+}
+
+.add-to-cart-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
 }
 
 .cta-section {
@@ -280,4 +317,50 @@
   }
 }
 </style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Add to cart functionality for extra services
+  const addToCartButtons = document.querySelectorAll('.add-to-cart-btn');
+
+  addToCartButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      const id = this.getAttribute('data-id');
+      const name = this.getAttribute('data-name');
+      const price = this.getAttribute('data-price');
+      const type = this.getAttribute('data-type');
+
+      fetch('/api/add-to-cart', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          id: id,
+          name: name,
+          price: price,
+          type: type
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          // Update cart count
+          document.getElementById('cart-count').textContent = data.cart_count;
+
+          // Show success message
+          const originalText = this.textContent;
+          this.textContent = 'Added to Cart!';
+          this.style.backgroundColor = '#4CAF50';
+
+          setTimeout(() => {
+            this.textContent = originalText;
+            this.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
+          }, 1500);
+        }
+      });
+    });
+  });
+});
+</script>
 {% endblock %}

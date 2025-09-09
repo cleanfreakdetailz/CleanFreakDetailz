@@ -21,7 +21,7 @@
         <li>Wheel Cleaning And Tire Shine</li>
       </ul>
       <div class="package-btn-container">
-        <a href="/contact" class="package-btn bronze-btn">Select Bronze</a>
+        <button class="package-btn bronze-btn add-to-cart" data-id="bronze" data-name="Bronze Package" data-price="129" data-type="package" data-image="Bronze.png">Add to Cart</button>
       </div>
     </div>
   </div>
@@ -47,7 +47,7 @@
         <li>Odor Elimination</li>
       </ul>
       <div class="package-btn-container">
-        <a href="/contact" class="package-btn silver-btn">Select Silver</a>
+        <button class="package-btn silver-btn add-to-cart" data-id="silver" data-name="Silver Package" data-price="199" data-type="package" data-image="Silver.png">Add to Cart</button>
       </div>
     </div>
   </div>
@@ -71,7 +71,7 @@
         <li>Engine Bay Cleaning</li>
       </ul>
       <div class="package-btn-container">
-        <a href="/contact" class="package-btn gold-btn">Select Gold</a>
+        <button class="package-btn gold-btn add-to-cart" data-id="gold" data-name="Gold Package" data-price="269" data-type="package" data-image="Gold.png">Add to Cart</button>
       </div>
     </div>
   </div>
@@ -211,6 +211,7 @@
   width: 100%;
   max-width: 200px;
   box-sizing: border-box;
+  cursor: pointer;
 }
 
 .package-btn.bronze-btn {
@@ -324,4 +325,62 @@
   }
 }
 </style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Add to cart functionality
+  const addToCartButtons = document.querySelectorAll('.add-to-cart');
+
+  addToCartButtons.forEach(button => {
+    button.addEventListener('click', function() {
+      const id = this.getAttribute('data-id');
+      const name = this.getAttribute('data-name');
+      const price = this.getAttribute('data-price');
+      const type = this.getAttribute('data-type');
+      const image = this.getAttribute('data-image');
+
+      fetch('/api/add-to-cart', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          id: id,
+          name: name,
+          price: price,
+          type: type,
+          image: image
+        })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          // Update cart count
+          document.getElementById('cart-count').textContent = data.cart_count;
+
+          // Show success message
+          const originalText = this.textContent;
+          this.textContent = 'Added to Cart!';
+          this.style.backgroundColor = '#4CAF50';
+          this.style.borderColor = '#4CAF50';
+
+          setTimeout(() => {
+            this.textContent = originalText;
+            if (id === 'bronze') {
+              this.style.backgroundColor = '#cd7f32';
+              this.style.borderColor = '#cd7f32';
+            } else if (id === 'silver') {
+              this.style.backgroundColor = '#c0c0c0';
+              this.style.borderColor = '#c0c0c0';
+            } else if (id === 'gold') {
+              this.style.backgroundColor = '#ffd700';
+              this.style.borderColor = '#ffd700';
+            }
+          }, 1500);
+        }
+      });
+    });
+  });
+});
+</script>
 {% endblock %}
