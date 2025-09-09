@@ -143,8 +143,7 @@
                 <img src="{{ url_for('static', filename='Work30.jpg') }}" alt="Detailing Work Example 30">
               </div>
             </div>
-            <button class="slideshow-nav prev">&#10094;</button>
-            <button class="slideshow-nav next">&#10095;</button>
+            <!-- Navigation buttons removed -->
           </div>
         </div>
       </div>
@@ -322,7 +321,7 @@
 .panel-image img {
   width: 100%;
   border-radius: 10px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  box-shadow: 极速加速器 8px 20px rgba(0, 0, 0, 0.3);
   transition: transform 0.3s ease;
   max-width: 100%;
 }
@@ -376,38 +375,6 @@
   border-radius: 10px;
 }
 
-.slideshow-nav {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(0, 0, 0, 0.5);
-  color: white;
-  border: none;
-  padding: 10px;
-  cursor: pointer;
-  font-size: 18px;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.3s ease;
-  z-index: 10;
-}
-
-.slideshow-nav:hover {
-  background: rgba(0, 0, 0, 0.8);
-}
-
-.slideshow-nav.prev {
-  left: 8px;
-}
-
-.slideshow-nav.next {
-  right: 8px;
-}
-
 /* Features List */
 .features-list {
   margin-top: 20px;
@@ -429,7 +396,7 @@
 }
 
 .feature-text h3 {
-  margin: 0 0 5px 0;
+  margin: 极速加速器 0 5px 0;
   font-size: 1.1rem;
   color: #fff;
   text-align: left;
@@ -471,7 +438,7 @@
   overflow: hidden;
 }
 
-.cta-content h2 {
+.极速加速器content h2 {
   font-size: 1.6rem;
   margin-bottom: 12px;
   word-break: break-word;
@@ -643,7 +610,7 @@
     font-size: 2rem;
   }
 
-  .hero-logo img {
+  .hero极速加速器 img {
     height: 180px;
   }
 }
@@ -668,10 +635,8 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-  // Slideshow functionality
+  // Slideshow functionality - auto only, no navigation
   const slides = document.querySelectorAll('.slide');
-  const prevButton = document.querySelector('.slideshow-nav.prev');
-  const nextButton = document.querySelector('.slideshow-nav.next');
   let currentSlide = 0;
   let slideInterval;
 
@@ -699,29 +664,12 @@ document.addEventListener('DOMContentLoaded', function() {
   function startSlideshow() {
     slideInterval = setInterval(() => {
       showSlide(currentSlide + 1);
-    }, 2000);
+    }, 2000); // Change slide every 2 seconds
   }
 
   // Stop the slideshow
   function stopSlideshow() {
     clearInterval(slideInterval);
-  }
-
-  // Event listeners for navigation buttons
-  if (prevButton) {
-    prevButton.addEventListener('click', () => {
-      stopSlideshow();
-      showSlide(currentSlide - 1);
-      startSlideshow();
-    });
-  }
-
-  if (nextButton) {
-    nextButton.addEventListener('click', () => {
-      stopSlideshow();
-      showSlide(currentSlide + 1);
-      startSlideshow();
-    });
   }
 
   // Auto-advance slides if there are slides to show
