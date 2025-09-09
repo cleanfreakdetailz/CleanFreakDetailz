@@ -52,98 +52,12 @@
           <div class="slideshow-container">
             <div class="slideshow">
               <!-- 30 Hardcoded Slides -->
-              <div class="slide active">
-                <img src="{{ url_for('static', filename='Work1.jpg') }}" alt="Detailing Work Example 1">
+              {% for i in range(1, 31) %}
+              <div class="slide {% if i == 1 %}active{% endif %}">
+                <img src="{{ url_for('static', filename='Work' ~ i ~ '.jpg') }}" alt="Detailing Work Example {{ i }}">
               </div>
-              <div class="slide">
-                <img src="{{ url_for('static', filename='Work2.jpg') }}" alt="Detailing Work Example 2">
-              </div>
-              <div class="slide">
-                <img src="{{ url_for('static', filename='Work3.jpg') }}" alt="Detailing Work Example 3">
-              </div>
-              <div class="slide">
-                <img src="{{ url_for('static', filename='Work4.jpg') }}" alt="Detailing Work Example 4">
-              </div>
-              <div class="slide">
-                <img src="{{ url_for('static', filename='Work5.jpg') }}" alt="Detailing Work Example 5">
-              </div>
-              <div class="slide">
-                <img src="{{ url_for('static', filename='Work6.jpg') }}" alt="Detailing Work Example 6">
-              </div>
-              <div class="slide">
-                <img src="{{ url_for('static', filename='Work7.jpg') }}" alt="Detailing Work Example 7">
-              </div>
-              <div class="slide">
-                <img src="{{ url_for('static', filename='Work8.jpg') }}" alt="Detailing Work Example 8">
-              </div>
-              <div class="slide">
-                <img src="{{ url_for('static', filename='Work9.jpg') }}" alt="Detailing Work Example 9">
-              </div>
-              <div class="slide">
-                <img src="{{ url_for('static', filename='Work10.jpg') }}" alt="Detailing Work Example 10">
-              </div>
-              <div class="slide">
-                <img src="{{ url_for('static', filename='Work11.jpg') }}" alt="Detailing Work Example 11">
-              </div>
-              <div class="slide">
-                <img src="{{ url_for('static', filename='Work12.jpg') }}" alt="Detailing Work Example 12">
-              </div>
-              <div class="slide">
-                <img src="{{ url_for('static', filename='Work13.jpg') }}" alt="Detailing Work Example 13">
-              </div>
-              <div class="slide">
-                <img src="{{ url_for('static', filename='Work14.jpg') }}" alt="Detailing Work Example 14">
-              </div>
-              <div class="slide">
-                <img src="{{ url_for('static', filename='Work15.jpg') }}" alt="Detailing Work Example 15">
-              </div>
-              <div class="slide">
-                <img src="{{ url_for('static', filename='Work16.jpg') }}" alt="Detailing Work Example 16">
-              </div>
-              <div class="slide">
-                <img src="{{ url_for('static', filename='Work17.jpg') }}" alt="Detailing Work Example 17">
-              </div>
-              <div class="slide">
-                <img src="{{ url_for('static', filename='Work18.jpg') }}" alt="Detailing Work Example 18">
-              </div>
-              <div class="slide">
-                <img src="{{ url_for('static', filename='Work19.jpg') }}" alt="Detailing Work Example 19">
-              </div>
-              <div class="slide">
-                <img src="{{ url_for('static', filename='Work20.jpg') }}" alt="Detailing Work Example 20">
-              </div>
-              <div class="slide">
-                <img src="{{ url_for('static', filename='Work21.jpg') }}" alt="Detailing Work Example 21">
-              </div>
-              <div class="slide">
-                <img src="{{ url_for('static', filename='Work22.jpg') }}" alt="Detailing Work Example 22">
-              </div>
-              <div class="slide">
-                <img src="{{ url_for('static', filename='Work23.jpg') }}" alt="Detailing Work Example 23">
-              </div>
-              <div class="slide">
-                <img src="{{ url_for('static', filename='Work24.jpg') }}" alt="Detailing Work Example 24">
-              </div>
-              <div class="slide">
-                <img src="{{ url_for('static', filename='Work25.jpg') }}" alt="Detailing Work Example 25">
-              </div>
-              <div class="slide">
-                <img src="{{ url_for('static', filename='Work26.jpg') }}" alt="Detailing Work Example 26">
-              </div>
-              <div class="slide">
-                <img src="{{ url_for('static', filename='Work27.jpg') }}" alt="Detailing Work Example 27">
-              </div>
-              <div class="slide">
-                <img src="{{ url_for('static', filename='Work28.jpg') }}" alt="Detailing Work Example 28">
-              </div>
-              <div class="slide">
-                <img src="{{ url_for('static', filename='Work29.jpg') }}" alt="Detailing Work Example 29">
-              </div>
-              <div class="slide">
-                <img src="{{ url_for('static', filename='Work30.jpg') }}" alt="Detailing Work Example 30">
-              </div>
+              {% endfor %}
             </div>
-            <!-- Navigation buttons removed -->
           </div>
         </div>
       </div>
@@ -205,7 +119,7 @@
 /* Hero Section with Logo on Right - FIXED ALIGNMENT */
 .hero-section {
   padding: 30px 0;
-  background: rgba(0, 0, 0, 0.6); /* Solid background instead of transparent */
+  background: rgba(0, 0, 0, 0.6);
   border-radius: 16px;
   margin-bottom: 30px;
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -272,7 +186,7 @@
 }
 
 .panel-section.alt {
-  background: rgba(0, 0, 0, 0.6); /* Solid background instead of transparent */
+  background: rgba(0, 0, 0, 0.6);
   border-radius: 12px;
   padding: 30px 0;
   margin: 25px 0;
@@ -321,7 +235,7 @@
 .panel-image img {
   width: 100%;
   border-radius: 10px;
-  box-shadow: 极速加速器 8px 20px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
   transition: transform 0.3s ease;
   max-width: 100%;
 }
@@ -396,7 +310,7 @@
 }
 
 .feature-text h3 {
-  margin: 极速加速器 0 5px 0;
+  margin: 0 5px 0 0;
   font-size: 1.1rem;
   color: #fff;
   text-align: left;
@@ -432,13 +346,13 @@
   text-align: center;
   padding: 40px 0;
   margin-top: 25px;
-  background: rgba(0, 0, 0, 0.6); /* Solid background instead of transparent */
+  background: rgba(0, 0, 0, 0.6);
   border-radius: 16px;
   border: 1px solid rgba(255, 255, 255, 0.1);
   overflow: hidden;
 }
 
-.极速加速器content h2 {
+.cta-content h2 {
   font-size: 1.6rem;
   margin-bottom: 12px;
   word-break: break-word;
@@ -610,12 +524,12 @@
     font-size: 2rem;
   }
 
-  .hero极速加速器 img {
+  .hero-logo img {
     height: 180px;
   }
 }
 
-/* COMPLETELY REMOVE BACKDROP-FILTER ON ALL DEVICES */
+/* Remove backdrop-filter on all devices */
 .hero-section,
 .panel-section.alt,
 .cta-section {
@@ -635,59 +549,20 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-  // Slideshow functionality - auto only, no navigation
+  // Slideshow functionality - auto only
   const slides = document.querySelectorAll('.slide');
   let currentSlide = 0;
-  let slideInterval;
 
-  // Function to show a specific slide
   function showSlide(index) {
-    // Hide all slides
-    slides.forEach(slide => {
-      slide.classList.remove('active');
-    });
-
-    // Adjust index if out of bounds
-    if (index >= slides.length) {
-      currentSlide = 0;
-    } else if (index < 0) {
-      currentSlide = slides.length - 1;
-    } else {
-      currentSlide = index;
-    }
-
-    // Show the current slide
+    slides.forEach(slide => slide.classList.remove('active'));
+    currentSlide = index >= slides.length ? 0 : index;
     slides[currentSlide].classList.add('active');
   }
 
-  // Start the slideshow
-  function startSlideshow() {
-    slideInterval = setInterval(() => {
+  if (slides.length > 0) {
+    setInterval(() => {
       showSlide(currentSlide + 1);
     }, 2000); // Change slide every 2 seconds
-  }
-
-  // Stop the slideshow
-  function stopSlideshow() {
-    clearInterval(slideInterval);
-  }
-
-  // Auto-advance slides if there are slides to show
-  if (slides.length > 0) {
-    startSlideshow();
-
-    // Pause slideshow when user hovers over it
-    const slideshowContainer = document.querySelector('.slideshow-container');
-    if (slideshowContainer) {
-      slideshowContainer.addEventListener('mouseenter', stopSlideshow);
-      slideshowContainer.addEventListener('mouseleave', startSlideshow);
-
-      // For touch devices
-      slideshowContainer.addEventListener('touchstart', stopSlideshow);
-      slideshowContainer.addEventListener('touchend', function() {
-        setTimeout(startSlideshow, 3000);
-      });
-    }
   }
 });
 </script>
