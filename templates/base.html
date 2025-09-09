@@ -105,6 +105,17 @@
         margin-top: 70px;
         padding: 10px;
       }
+
+      /* Mobile-specific backdrop-filter fix */
+      .package-panel,
+      .service-card,
+      .cta-section,
+      .hero-section,
+      .panel-section.alt,
+      .packages-banner {
+        backdrop-filter: none !important;
+        background: rgba(0, 0, 0, 0.7) !important;
+      }
     }
 
     /* Small mobile devices */

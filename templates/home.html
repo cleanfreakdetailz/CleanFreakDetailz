@@ -55,22 +55,27 @@
               {% if work_images %}
                 {% for image in work_images %}
                 <div class="slide {% if loop.first %}active{% endif %}">
-                  <img src="{{ url_for('static', filename=image.filename) }}" alt="Detailing Work Example {{ image.number }}">
+                  <img src="{{ url_for('static', filename=image.filename) }}" alt="Detailing Work Example {{ image.number }}"
+                       onerror="this.style.display='none'">
                 </div>
                 {% endfor %}
               {% else %}
                 <!-- Fallback images if no Work images found -->
                 <div class="slide active">
-                  <img src="{{ url_for('static', filename='Work/Work1.jpg') }}" alt="Detailing Work Example 1">
+                  <img src="{{ url_for('static', filename='Work/Work1.jpg') }}" alt="Detailing Work Example 1"
+                       onerror="this.src='data:image/svg+xml;charset=utf-8,%3Csvg xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22 width%3D%22400%22 height%3D%22300%22 viewBox%3D%220 0 400 300%22%3E%3Crect fill%3D%22%23333%22 width%3D%22400%22 height%3D%22300%22%2F%3E%3Ctext fill%3D%22%23fff%22 font-family%3D%22Arial%22 font-size%3D%2220%22 x%3D%22150%22 y%3D%22150%22%3EImage not found%3C%2Ftext%3E%3C%2Fsvg%3E'">
                 </div>
                 <div class="slide">
-                  <img src="{{ url_for('static', filename='Work/Work2.jpg') }}" alt="Detailing Work Example 2">
+                  <img src="{{ url_for('static', filename='Work/Work2.jpg') }}" alt="Detailing Work Example 2"
+                       onerror="this.src='data:image/svg+xml;charset=utf-8,%3Csvg xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22 width%3D%22400%22 height%3D%22300%22 viewBox%3D%220 0 400 300%22%3E%3Crect fill%3D%22%23333%22 width%3D%22400%22 height%3D%22300%22%2F%3E%3Ctext fill%3D%22%23fff%22 font-family%3D%22Arial%22 font-size%3D%2220%22 x%3D%22150%22 y%3D%22150%22%3EImage not found%3C%2Ftext%3E%3C%2Fsvg%3E'">
                 </div>
                 <div class="slide">
-                  <img src="{{ url_for('static', filename='Work/Work3.jpg') }}" alt="Detailing Work Example 3">
+                  <img src="{{ url_for('static', filename='Work/Work3.jpg') }}" alt="Detailing Work Example 3"
+                       onerror="this.src='data:image/svg+xml;charset=utf-8,%3Csvg xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22 width%3D%22400%22 height%3D%22300%22 viewBox%3D%220 0 400 300%22%3E%3Crect fill%3D%22%23333%22 width%3D%22400%22 height%3D%22300%22%2F%3E%3Ctext fill%3D%22%23fff%22 font-family%3D%22Arial%22 font-size%3D%2220%22 x%3D%22150%22 y%3D%22150%22%3EImage not found%3C%2Ftext%3E%3C%2Fsvg%3E'">
                 </div>
                 <div class="slide">
-                  <img src="{{ url_for('static', filename='Work/Work4.jpg') }}" alt="Detailing Work Example 4">
+                  <img src="{{ url_for('static', filename='Work/Work4.jpg') }}" alt="Detailing Work Example 4"
+                       onerror="this.src='data:image/svg+xml;charset=utf-8,%3Csvg xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22 width%3D%22400%22 height%3D%22300%22 viewBox%3D%220 0 400 300%22%3E%3Crect fill%3D%22%23333%22 width%3D%22400%22 height%3D%22300%22%2F%3E%3Ctext fill%3D%22%23fff%22 font-family%3D%22Arial%22 font-size%3D%2220%22 x%3D%22150%22 y%3D%22150%22%3EImage not found%3C%2Ftext%3E%3C%2Fsvg%3E'">
                 </div>
               {% endif %}
             </div>
@@ -587,6 +592,16 @@
     background: rgba(0, 0, 0, 0.4);
   }
 }
+
+/* Mobile-specific backdrop-filter fix */
+@media (max-width: 768px) {
+  .hero-section,
+  .panel-section.alt,
+  .cta-section {
+    backdrop-filter: none !important;
+    background: rgba(0, 0, 0, 0.7) !important;
+  }
+}
 </style>
 
 <script>
@@ -596,6 +611,7 @@ document.addEventListener('DOMContentLoaded', function() {
   const prevButton = document.querySelector('.slideshow-nav.prev');
   const nextButton = document.querySelector('.slideshow-nav.next');
   let currentSlide = 0;
+  let slideInterval;
 
   // Function to show a specific slide
   function showSlide(index) {
@@ -617,24 +633,45 @@ document.addEventListener('DOMContentLoaded', function() {
     slides[currentSlide].classList.add('active');
   }
 
+  // Start the slideshow
+  function startSlideshow() {
+    slideInterval = setInterval(() => {
+      showSlide(currentSlide + 1);
+    }, 5000);
+  }
+
+  // Stop the slideshow
+  function stopSlideshow() {
+    clearInterval(slideInterval);
+  }
+
   // Event listeners for navigation buttons
   if (prevButton) {
     prevButton.addEventListener('click', () => {
+      stopSlideshow();
       showSlide(currentSlide - 1);
+      startSlideshow();
     });
   }
 
   if (nextButton) {
     nextButton.addEventListener('click', () => {
+      stopSlideshow();
       showSlide(currentSlide + 1);
+      startSlideshow();
     });
   }
 
-  // Auto-advance slides every 2 seconds
+  // Auto-advance slides if there are slides to show
   if (slides.length > 0) {
-    setInterval(() => {
-      showSlide(currentSlide + 1);
-    }, 2000);
+    startSlideshow();
+
+    // Pause slideshow when user hovers over it
+    const slideshowContainer = document.querySelector('.slideshow-container');
+    if (slideshowContainer) {
+      slideshowContainer.addEventListener('mouseenter', stopSlideshow);
+      slideshowContainer.addEventListener('mouseleave', startSlideshow);
+    }
   }
 });
 </script>
