@@ -1,0 +1,234 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="packages-container">
+  <h1>Our Detailing Packages</h1>
+  <p class="packages-subtitle">Choose the perfect package for your vehicle's needs</p>
+
+  <!-- Bronze Package -->
+  <div class="package-panel">
+    <div class="package-image">
+      <img src="{{ url_for('static', filename='Bronze.png') }}" alt="Bronze Detailing Package">
+    </div>
+    <div class="package-details">
+      <h2 class="package-title bronze">Bronze Package</h2>
+      <p class="package-price">$129</p>
+      <p class="package-description">Perfect for regular maintenance and light cleaning</p>
+      <ul class="package-features">
+        <li>Exterior Hand Wash And Dry</li>
+        <li>Window Cleaning</li>
+        <li>Interior Vacuum</li>
+        <li>Full Interior Wipe Down</li>
+        <li>Wheel Cleaning And Tire Shine</li>
+      </ul>
+      <a href="/contact" class="package-btn bronze-btn">Select Bronze</a>
+    </div>
+  </div>
+
+  <!-- Silver Package -->
+  <div class="package-panel">
+    <div class="package-image">
+      <img src="{{ url_for('static', filename='Silver.png') }}" alt="Silver Detailing Package">
+    </div>
+    <div class="package-details">
+      <h2 class="package-title silver">Silver Package</h2>
+      <p class="package-price">$199</p>
+      <p class="package-description">Great for deeper cleaning and protection</p>
+      <ul class="package-features">
+        <li>Everything in Bronze Package</li>
+        <li>Clay Bar Treatment</li>
+        <li>Iron Removal Paint Treatment</li>
+        <li>Premium Wax</li>
+        <li>Interior Deep Cleaning</li>
+        <li>Door Jambs Cleaning</li>
+        <li>Interior Plastics Conditioning</li>
+        <li>Air Vent Cleaning</li>
+        <li>Odor Elimination</li>
+      </ul>
+      <a href="/contact" class="package-btn silver-btn">Select Silver</a>
+    </div>
+  </div>
+
+  <!-- Gold Package -->
+  <div class="package-panel">
+    <div class="package-image">
+      <img src="{{ url_for('static', filename='Gold.png') }}" alt="Gold Detailing Package">
+    </div>
+    <div class="package-details">
+      <h2 class="package-title gold">Gold Package</h2>
+      <p class="package-price">$269</p>
+      <p class="package-description">Our most comprehensive detailing service</p>
+      <ul class="package-features">
+        <li>Everything in Silver Package</li>
+        <li>Leather Deep Cleaning and Conditioning</li>
+        <li>Carpet Stain Removal</li>
+        <li>Seat Stain Removal</li>
+        <li>Headliner Cleaning</li>
+        <li>Machine Wax</li>
+        <li>Engine Bay Cleaning</li>
+      </ul>
+      <a href="/contact" class="package-btn gold-btn">Select Gold</a>
+    </div>
+  </div>
+
+<style>
+.packages-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.packages-subtitle {
+  font-size: 1.2rem;
+  margin-bottom: 40px;
+  opacity: 0.9;
+  text-align: center;
+}
+
+.package-panel {
+  display: flex;
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  overflow: hidden;
+  margin-bottom: 40px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.package-image {
+  flex: 1;
+  min-width: 300px;
+}
+
+.package-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.package-details {
+  flex: 1;
+  padding: 30px;
+}
+
+.package-title {
+  margin-top: 0;
+  font-size: 2rem;
+  padding-bottom: 10px;
+  border-bottom: 2px solid;
+  display: inline-block;
+}
+
+.package-title.bronze {
+  color: #cd7f32;
+  border-bottom-color: #cd7f32;
+}
+
+.package-title.silver {
+  color: #c0c0c0;
+  border-bottom-color: #c0c0c0;
+}
+
+.package-title.gold {
+  color: #ffd700;
+  border-bottom-color: #ffd700;
+}
+
+.package-title.custom {
+  color: #9370db;
+  border-bottom-color: #9370db;
+}
+
+.package-price {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.package-description {
+  font-style: italic;
+  margin-bottom: 20px;
+  opacity: 0.9;
+}
+
+.package-features {
+  list-style-type: none;
+  padding: 0;
+  margin-bottom: 25px;
+}
+
+.package-features li {
+  padding: 8px 0;
+  padding-left: 25px;
+  position: relative;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.package-features li:before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: #4CAF50;
+  font-weight: bold;
+}
+
+.package-btn {
+  display: inline-block;
+  padding: 12px 25px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.3s ease;
+  border: 2px solid;
+}
+
+.package-btn.bronze-btn {
+  background-color: #cd7f32;
+  color: white;
+  border-color: #cd7f32;
+}
+
+.package-btn.silver-btn {
+  background-color: #c0c0c0;
+  color: #333;
+  border-color: #c0c0c0;
+}
+
+.package-btn.gold-btn {
+  background-color: #ffd700;
+  color: #333;
+  border-color: #ffd700;
+}
+
+.package-btn.custom-btn {
+  background-color: #9370db;
+  color: white;
+  border-color: #9370db;
+}
+
+.package-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .package-panel {
+    flex-direction: column;
+  }
+
+  .package-image {
+    min-width: 100%;
+    height: 250px;
+  }
+}
+
+/* Fallback for browsers that don't support backdrop-filter */
+@supports not (backdrop-filter: blur(10px)) {
+  .package-panel {
+    background: rgba(0, 0, 0, 0.5);
+  }
+}
+</style>
+{% endblock %}

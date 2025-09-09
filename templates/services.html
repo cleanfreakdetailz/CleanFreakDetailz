@@ -1,0 +1,265 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="services-container">
+  <h1>Our Detailing Services</h1>
+  <p class="services-subtitle">Professional auto detailing services that make your vehicle shine</p>
+
+  <!-- Packages Promotion Banner -->
+  <div class="packages-banner">
+    <div class="banner-content">
+      <p>Not sure what services to choose?</p>
+      <h3>Explore our service packages designed for your needs</h3>
+      <a href="{{ url_for('packages') }}" class="packages-btn">View Packages</a>
+    </div>
+    <div class="banner-icon">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+        <path fill-rule="evenodd" d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z" clip-rule="evenodd" />
+      </svg>
+    </div>
+  </div>
+
+  <div class="services-grid">
+    <!-- Service 1 -->
+    <div class="service-card">
+      <div class="service-image">
+        <img src="{{ url_for('static', filename='TireService.jpg') }}" alt="Wheel Clean And Tire Shine">
+      </div>
+      <div class="service-content">
+        <h3>Wheel Cleaning And Tire Shine</h3>
+      </div>
+    </div>
+
+    <!-- Service 2 -->
+    <div class="service-card">
+      <div class="service-image">
+        <img src="{{ url_for('static', filename='VacuumService.jpg') }}" alt="Service 2">
+      </div>
+      <div class="service-content">
+        <h3>Interior Vacuuming</h3>
+      </div>
+    </div>
+
+    <!-- Service 3 -->
+    <div class="service-card">
+      <div class="service-image">
+        <img src="{{ url_for('static', filename='DoghairService.jpg') }}" alt="Service 3">
+      </div>
+      <div class="service-content">
+        <h3>Dog Hair Removal</h3>
+      </div>
+    </div>
+
+    <!-- Service 4 -->
+    <div class="service-card">
+      <div class="service-video">
+        <video autoplay muted loop playsinline>
+          <source src="{{ url_for('static', filename='StainService.mp4') }}" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      </div>
+      <div class="service-content">
+        <h3>Stain Removal</h3>
+      </div>
+    </div>
+
+    <!-- Service 5 -->
+    <div class="service-card">
+      <div class="service-image">
+        <img src="{{ url_for('static', filename='HeadlightService.jpg') }}" alt="Service 5">
+      </div>
+      <div class="service-content">
+        <h3>Headlight Restoration</h3>
+      </div>
+    </div>
+
+    <!-- Service 6 -->
+    <div class="service-card">
+      <div class="service-image">
+        <img src="{{ url_for('static', filename='EngineBayService.jpg') }}" alt="Service 6">
+      </div>
+      <div class="service-content">
+        <h3>Engina Bay Cleaning</h3>
+      </div>
+    </div>
+
+    <!-- Service 7 -->
+    <div class="service-card">
+      <div class="service-image">
+        <img src="{{ url_for('static', filename='ExteriorCleaning.jpg') }}" alt="Service 7">
+      </div>
+      <div class="service-content">
+        <h3>Exterior Hand Wash and Wax</h3>
+      </div>
+    </div>
+</div>
+
+<style>
+.services-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.services-subtitle {
+  font-size: 1.2rem;
+  margin-bottom: 40px;
+  opacity: 0.9;
+  text-align: center;
+}
+
+/* Packages Banner */
+.packages-banner {
+  display: flex;
+  align-items: center;
+  background: linear-gradient(135deg, rgba(76, 81, 191, 0.2) 0%, rgba(102, 126, 234, 0.2) 100%);
+  border-radius: 16px;
+  padding: 25px 30px;
+  margin-bottom: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+}
+
+.banner-content {
+  flex: 1;
+}
+
+.banner-content p {
+  margin: 0 0 10px 0;
+  font-size: 1.1rem;
+  opacity: 0.9;
+}
+
+.banner-content h3 {
+  margin: 0 0 20px 0;
+  font-size: 1.4rem;
+  color: #fff;
+}
+
+.packages-btn {
+  display: inline-block;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  padding: 12px 25px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.packages-btn:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+.banner-icon {
+  margin-left: 20px;
+}
+
+.banner-icon svg {
+  width: 50px;
+  height: 50px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.service-card {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.service-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+}
+
+.service-image {
+  height: 250px;
+  overflow: hidden;
+}
+
+.service-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.service-video {
+  height: 250px;
+  overflow: hidden;
+}
+
+.service-video video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.service-card:hover .service-image img,
+.service-card:hover .service-video video {
+  transform: scale(1.05);
+}
+
+.service-content {
+  padding: 20px;
+  text-align: center;
+}
+
+.service-content h3 {
+  margin: 0;
+  font-size: 1.3rem;
+  color: #fff;
+}
+
+/* Responsive design */
+@media (max-width: 992px) {
+  .services-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .packages-banner {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .banner-icon {
+    margin: 20px 0 0 0;
+  }
+}
+
+@media (max-width: 576px) {
+  .services-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .packages-banner {
+    padding: 20px;
+  }
+
+  .banner-content h3 {
+    font-size: 1.2rem;
+  }
+}
+
+/* Fallback for browsers that don't support backdrop-filter */
+@supports not (backdrop-filter: blur(10px)) {
+  .service-card, .packages-banner {
+    background: rgba(0, 0, 0, 0.5);
+  }
+}
+</style>
+{% endblock %}
+  </div>

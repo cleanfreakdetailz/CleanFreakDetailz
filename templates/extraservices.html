@@ -1,0 +1,285 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="extra-services-container">
+  <h1>Premium Additional Services</h1>
+  <p class="services-subtitle">Specialized detailing services for your specific needs</p>
+
+  <!-- Services Grid -->
+  <div class="services-grid">
+    <!-- Pet Hair Removal -->
+    <div class="service-card">
+      <div class="service-icon">🐕</div>
+      <div class="service-content">
+        <h3>Pet Hair Removal</h3>
+        <div class="price-tag">$25</div>
+        <p>Specialized tools to completely remove embedded pet hair from upholstery and carpets</p>
+      </div>
+    </div>
+
+    <!-- Headlight Restoration -->
+    <div class="service-card">
+      <div class="service-icon">💡</div>
+      <div class="service-content">
+        <h3>Headlight Restoration</h3>
+        <div class="price-tag">$45</div>
+        <p>Professional restoration of cloudy, yellowed headlights to like-new clarity and brightness</p>
+      </div>
+    </div>
+
+    <!-- Paint Correction -->
+    <div class="service-card full-width">
+      <div class="service-icon">✨</div>
+      <div class="service-content">
+        <h3>Paint Correction</h3>
+        <div class="price-tag">Starting at $149</div>
+        <p>Professional removal of swirl marks, scratches, and oxidation to restore your paint's original depth and gloss</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Call to Action -->
+  <div class="cta-section">
+    <div class="cta-content">
+      <h2>Ready to Transform Your Vehicle?</h2>
+      <p>Contact us today for a personalized quote tailored to your specific needs</p>
+      <div class="cta-buttons">
+        <a href="{{ url_for('contact') }}" class="cta-button primary">Get a Custom Quote</a>
+        <a href="{{ url_for('packages') }}" class="cta-button secondary">View Packages</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.extra-services-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 20px;
+  text-align: center;
+}
+
+.services-subtitle {
+  font-size: 1.2rem;
+  margin-bottom: 40px;
+  opacity: 0.9;
+}
+
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 25px;
+  margin-bottom: 40px;
+}
+
+.service-card {
+  background: rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 30px;
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.service-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.service-card.full-width {
+  grid-column: 1 / -1;
+  max-width: 600px;
+  margin: 0 auto;
+  flex-direction: row;
+  text-align: left;
+  gap: 20px;
+}
+
+.service-icon {
+  font-size: 3rem;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(52, 152, 219, 0.15);
+  border-radius: 50%;
+  margin-bottom: 20px;
+  flex-shrink: 0;
+}
+
+.service-card.full-width .service-icon {
+  margin-bottom: 0;
+}
+
+.service-content {
+  flex: 1;
+}
+
+.service-content h3 {
+  margin: 0 0 15px 0;
+  font-size: 1.5rem;
+  color: #fff;
+}
+
+.price-tag {
+  background: linear-gradient(135deg, #3498db, #2980b9);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-weight: 700;
+  font-size: 1.2rem;
+  box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+  display: inline-block;
+  margin-bottom: 15px;
+}
+
+.service-content p {
+  margin: 0;
+  opacity: 0.85;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.pricing-info {
+  padding: 25px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 40px;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.price-disclaimer p {
+  margin: 8px 0;
+  font-size: 0.9rem;
+  opacity: 0.8;
+  font-style: italic;
+}
+
+.cta-section {
+  background: linear-gradient(135deg, rgba(52, 152, 219, 0.15) 0%, rgba(41, 128, 185, 0.15) 100%);
+  border-radius: 20px;
+  padding: 50px;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.cta-content h2 {
+  margin-top: 0;
+  font-size: 2rem;
+  margin-bottom: 15px;
+}
+
+.cta-content p {
+  font-size: 1.2rem;
+  opacity: 0.9;
+  margin-bottom: 30px;
+}
+
+.cta-buttons {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.cta-button {
+  padding: 16px 35px;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  border: 2px solid;
+}
+
+.cta-button.primary {
+  background: linear-gradient(135deg, #3498db, #2980b9);
+  color: white;
+  border-color: #3498db;
+}
+
+.cta-button.secondary {
+  background: transparent;
+  color: white;
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.cta-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
+}
+
+.cta-button.primary:hover {
+  background: linear-gradient(135deg, #2980b9, #3498db);
+}
+
+.cta-button.secondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .services-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .service-card.full-width {
+    flex-direction: column;
+    text-align: center;
+    gap: 15px;
+  }
+
+  .cta-section {
+    padding: 30px 20px;
+  }
+
+  .cta-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .cta-button {
+    width: 100%;
+    max-width: 250px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 576px) {
+  .extra-services-container {
+    padding: 15px;
+  }
+
+  .service-card {
+    padding: 20px;
+  }
+
+  .service-icon {
+    width: 60px;
+    height: 60px;
+    font-size: 2rem;
+  }
+}
+
+/* Fallback for browsers that don't support backdrop-filter */
+@supports not (backdrop-filter: blur(10px)) {
+  .service-card,
+  .cta-section,
+  .pricing-info {
+    background: rgba(0, 0, 0, 0.5);
+  }
+}
+</style>
+{% endblock %}
