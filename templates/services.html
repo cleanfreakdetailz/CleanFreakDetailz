@@ -32,7 +32,7 @@
     <!-- Service 2 -->
     <div class="service-card">
       <div class="service-image">
-        <img src="{{ url_for('static', filename='VacuumService.jpg') }}" alt="Service 2">
+        <img src="{{ url_for('static', filename='VacuumService.jpg') }}" alt="Interior Vacuuming">
       </div>
       <div class="service-content">
         <h3>Interior Vacuuming</h3>
@@ -42,7 +42,7 @@
     <!-- Service 3 -->
     <div class="service-card">
       <div class="service-image">
-        <img src="{{ url_for('static', filename='DoghairService.jpg') }}" alt="Service 3">
+        <img src="{{ url_for('static', filename='DoghairService.jpg') }}" alt="Dog Hair Removal">
       </div>
       <div class="service-content">
         <h3>Dog Hair Removal</h3>
@@ -65,7 +65,7 @@
     <!-- Service 5 -->
     <div class="service-card">
       <div class="service-image">
-        <img src="{{ url_for('static', filename='HeadlightService.jpg') }}" alt="Service 5">
+        <img src="{{ url_for('static', filename='HeadlightService.jpg') }}" alt="Headlight Restoration">
       </div>
       <div class="service-content">
         <h3>Headlight Restoration</h3>
@@ -75,63 +75,67 @@
     <!-- Service 6 -->
     <div class="service-card">
       <div class="service-image">
-        <img src="{{ url_for('static', filename='EngineBayService.jpg') }}" alt="Service 6">
+        <img src="{{ url_for('static', filename='EngineBayService.jpg') }}" alt="Engine Bay Cleaning">
       </div>
       <div class="service-content">
-        <h3>Engina Bay Cleaning</h3>
+        <h3>Engine Bay Cleaning</h3>
       </div>
     </div>
 
     <!-- Service 7 -->
     <div class="service-card">
       <div class="service-image">
-        <img src="{{ url_for('static', filename='ExteriorCleaning.jpg') }}" alt="Service 7">
+        <img src="{{ url_for('static', filename='ExteriorCleaning.jpg') }}" alt="Exterior Hand Wash and Wax">
       </div>
       <div class="service-content">
         <h3>Exterior Hand Wash and Wax</h3>
       </div>
     </div>
+  </div>
 </div>
 
 <style>
 .services-container {
   max-width: 1400px;
   margin: 0 auto;
-  padding: 20px;
+  padding: 20px 15px;
 }
 
 .services-subtitle {
-  font-size: 1.2rem;
-  margin-bottom: 40px;
+  font-size: 1.1rem;
+  margin-bottom: 30px;
   opacity: 0.9;
   text-align: center;
+  line-height: 1.5;
 }
 
 /* Packages Banner */
 .packages-banner {
   display: flex;
+  flex-direction: column;
   align-items: center;
+  text-align: center;
   background: linear-gradient(135deg, rgba(76, 81, 191, 0.2) 0%, rgba(102, 126, 234, 0.2) 100%);
   border-radius: 16px;
-  padding: 25px 30px;
-  margin-bottom: 40px;
+  padding: 25px 20px;
+  margin-bottom: 30px;
   border: 1px solid rgba(255, 255, 255, 0.15);
   backdrop-filter: blur(10px);
 }
 
 .banner-content {
-  flex: 1;
+  width: 100%;
 }
 
 .banner-content p {
   margin: 0 0 10px 0;
-  font-size: 1.1rem;
+  font-size: 1rem;
   opacity: 0.9;
 }
 
 .banner-content h3 {
   margin: 0 0 20px 0;
-  font-size: 1.4rem;
+  font-size: 1.3rem;
   color: #fff;
 }
 
@@ -145,6 +149,8 @@
   font-weight: 600;
   transition: all 0.3s ease;
   border: 1px solid rgba(255, 255, 255, 0.3);
+  width: 100%;
+  max-width: 200px;
 }
 
 .packages-btn:hover {
@@ -154,19 +160,19 @@
 }
 
 .banner-icon {
-  margin-left: 20px;
+  margin: 20px 0 0 0;
 }
 
 .banner-icon svg {
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   color: rgba(255, 255, 255, 0.7);
 }
 
 .services-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 30px;
+  grid-template-columns: 1fr;
+  gap: 20px;
 }
 
 .service-card {
@@ -175,17 +181,17 @@
   overflow: hidden;
   backdrop-filter: blur(10px);
   border: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .service-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.3);
 }
 
 .service-image {
-  height: 250px;
+  height: 200px;
   overflow: hidden;
 }
 
@@ -197,7 +203,7 @@
 }
 
 .service-video {
-  height: 250px;
+  height: 200px;
   overflow: hidden;
 }
 
@@ -220,37 +226,69 @@
 
 .service-content h3 {
   margin: 0;
-  font-size: 1.3rem;
+  font-size: 1.2rem;
   color: #fff;
+  line-height: 1.4;
 }
 
-/* Responsive design */
-@media (max-width: 992px) {
+/* Tablet and larger screens */
+@media (min-width: 640px) {
   .services-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
   }
 
   .packages-banner {
-    flex-direction: column;
-    text-align: center;
+    flex-direction: row;
+    text-align: left;
+    padding: 25px 30px;
+  }
+
+  .banner-content {
+    width: auto;
+    flex: 1;
   }
 
   .banner-icon {
-    margin: 20px 0 0 0;
+    margin: 0 0 0 20px;
+  }
+
+  .packages-btn {
+    width: auto;
   }
 }
 
-@media (max-width: 576px) {
+/* Desktop screens */
+@media (min-width: 1024px) {
+  .services-container {
+    padding: 30px 20px;
+  }
+
   .services-grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
   }
 
-  .packages-banner {
-    padding: 20px;
-  }
-
-  .banner-content h3 {
+  .services-subtitle {
     font-size: 1.2rem;
+    margin-bottom: 40px;
+  }
+
+  .service-image,
+  .service-video {
+    height: 220px;
+  }
+
+  .service-content h3 {
+    font-size: 1.3rem;
+  }
+}
+
+/* Large desktop screens */
+@media (min-width: 1280px) {
+  .service-image,
+  .service-video {
+    height: 250px;
   }
 }
 
@@ -262,4 +300,3 @@
 }
 </style>
 {% endblock %}
-  </div>
