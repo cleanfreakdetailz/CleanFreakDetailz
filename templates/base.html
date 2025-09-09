@@ -10,10 +10,12 @@
       padding: 0;
       height: 100%;
       font-family: Arial, sans-serif;
+      background: #0d1b2a; /* Fallback solid color */
     }
 
     body {
-      background: url("{{ url_for('static', filename='background.png') }}") no-repeat center center fixed;
+      background: linear-gradient(rgba(13, 27, 42, 0.8), rgba(13, 27, 42, 0.8)),
+                  url("{{ url_for('static', filename='background.png') }}") no-repeat center center fixed;
       background-size: cover;
       color: white;
       text-align: center;
@@ -106,14 +108,17 @@
         padding: 10px;
       }
 
-      /* Mobile-specific backdrop-filter fix */
+      /* COMPLETELY REMOVE BACKDROP-FILTER ON MOBILE */
       .package-panel,
       .service-card,
       .cta-section,
       .hero-section,
       .panel-section.alt,
-      .packages-banner {
+      .packages-banner,
+      .service-card,
+      .contact-card {
         backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
         background: rgba(0, 0, 0, 0.7) !important;
       }
     }
