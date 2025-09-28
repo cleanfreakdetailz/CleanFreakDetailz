@@ -49,7 +49,7 @@
           <textarea id="additional_info" name="additional_info" rows="3" placeholder="Any special requests or details about your vehicle..."></textarea>
         </div>
         
-        <button type="submit" class="submit-order-btn">Submit Order</button>
+        <button type="submit" class="submit-order-btn">Schedule (Send Message)</button>
       </form>
     </div>
   </div>
@@ -210,7 +210,7 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(response => response.json())
         .then(data => {
           if (data.success) {
-            alert('Order submitted successfully! We will contact you soon to confirm your appointment.');
+            alert('Schedule submitted successfully! We will contact you soon to confirm your detail.');
             window.location.href = '/';
           } else {
             alert('Error: ' + data.message);
