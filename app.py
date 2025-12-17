@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify, session
+from flask import Flask, render_template, request, jsonify, session, send_from_directory
 import os
 import json
 import smtplib
@@ -9,11 +9,19 @@ from datetime import datetime
 app = Flask(__name__)
 app.secret_key = 'cleanfreakdetailz@4600'  # Change this to a secure random key
 
-# Email configuration (update with your email details)
-EMAIL_HOST = 'smtp.gmail.com'  # Or your email provider's SMTP server
+# Email configuration
+EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_USER = 'cleanfreakdetailz@gmail.com'  # Your email address
-EMAIL_PASSWORD = 'aolp blof tuee ireq'  # Your email password or app-specific password
+EMAIL_USER = 'cleanfreakdetailz@gmail.com'
+EMAIL_PASSWORD = 'aolp blof tuee ireq'
+
+# =========================
+# Google Site Verification
+# =========================
+@app.route('/google89aa697c5ee6a684.html')
+def google_verify():
+    return send_from_directory('static', 'google89aa697c5ee6a684.html')
+
 
 @app.route('/')
 def home():
@@ -40,7 +48,6 @@ def packages():
     return render_template('packages.html', title='Service Packages')
 
 
-# New routes for cart functionality
 @app.route('/cart')
 def cart():
     return render_template('cart.html', title='Your Cart')
@@ -62,17 +69,8 @@ def add_to_cart():
         'image': data.get('image', '')
     }
 
-    # Get or initialize cart
     cart = session.get('cart', [])
-
-    # Check if item already exists in cart
-    item_exists = False
-    for cart_item in cart:
-        if cart_item['id'] == item['id'] and cart_item['type'] == item['type']:
-            item_exists = True
-            break
-
-    if not item_exists:
+    if not any(c['id'] == item['id'] and c['type'] == item['type'] for c in cart):
         cart.append(item)
         session['cart'] = cart
 
@@ -82,22 +80,17 @@ def add_to_cart():
 @app.route('/api/remove-from-cart', methods=['POST'])
 def remove_from_cart():
     data = request.json
-    item_id = data.get('id')
-    item_type = data.get('type')
-
     cart = session.get('cart', [])
-
-    # Remove the item
-    cart = [item for item in cart if not (item['id'] == item_id and item['type'] == item_type)]
-
-    session['cart'] = cart
-    return jsonify({'success': True, 'cart_count': len(cart)})
+    session['cart'] = [
+        item for item in cart
+        if not (item['id'] == data.get('id') and item['type'] == data.get('type'))
+    ]
+    return jsonify({'success': True, 'cart_count': len(session['cart'])})
 
 
 @app.route('/api/get-cart')
 def get_cart():
-    cart = session.get('cart', [])
-    return jsonify(cart)
+    return jsonify(session.get('cart', []))
 
 
 @app.route('/api/submit-order', methods=['POST'])
@@ -107,64 +100,49 @@ def submit_order():
         cart_items = data.get('cart', [])
         customer_info = data.get('customer_info', {})
 
-        # Create email message
         subject = f"New Order from {customer_info.get('name', 'Customer')}"
 
-        # Build email body
         message = f"""
-        New Order Details:
+Customer Information:
+Name: {customer_info.get('name')}
+Email: {customer_info.get('email')}
+Phone: {customer_info.get('phone')}
+Address: {customer_info.get('address')}
+Preferred Date: {customer_info.get('date')}
+Vehicle Info: {customer_info.get('vehicle')}
+Additional Info: {customer_info.get('additional_info')}
 
-        Customer Information:
-        Name: {customer_info.get('name', 'Not provided')}
-        Email: {customer_info.get('email', 'Not provided')}
-        Phone: {customer_info.get('phone', 'Not provided')}
-        Address: {customer_info.get('address', 'Not provided')}
-        Preferred Date: {customer_info.get('date', 'Not specified')}
-        Vehicle Info: {customer_info.get('vehicle', 'Not provided')}
-        Additional Info: {customer_info.get('additional_info', 'None')}
-
-        Order Items:
-        """
-
+Order Items:
+"""
         total = 0
         for item in cart_items:
             message += f"- {item['name']}: ${item['price']}\n"
             total += float(item['price'])
 
         message += f"\nTotal: ${total:.2f}"
-        message += f"\n\nOrder received at: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}"
+        message += f"\nReceived at: {datetime.now()}"
 
-        # Send email
         send_email(EMAIL_USER, subject, message)
-
-        # Clear the cart after successful order
         session['cart'] = []
 
-        return jsonify({'success': True, 'message': 'Order submitted successfully!'})
+        return jsonify({'success': True})
     except Exception as e:
-        return jsonify({'success': False, 'message': f'Error: {str(e)}'}), 500
+        return jsonify({'success': False, 'error': str(e)}), 500
 
 
 def send_email(to_email, subject, body):
-    """Send email using SMTP"""
-    try:
-        msg = MIMEMultipart()
-        msg['From'] = EMAIL_USER
-        msg['To'] = to_email
-        msg['Subject'] = subject
+    msg = MIMEMultipart()
+    msg['From'] = EMAIL_USER
+    msg['To'] = to_email
+    msg['Subject'] = subject
 
-        msg.attach(MIMEText(body, 'plain'))
+    msg.attach(MIMEText(body, 'plain'))
 
-        server = smtplib.SMTP(EMAIL_HOST, EMAIL_PORT)
-        server.starttls()
-        server.login(EMAIL_USER, EMAIL_PASSWORD)
-        text = msg.as_string()
-        server.sendmail(EMAIL_USER, to_email, text)
-        server.quit()
-        return True
-    except Exception as e:
-        print(f"Error sending email: {e}")
-        return False
+    server = smtplib.SMTP(EMAIL_HOST, EMAIL_PORT)
+    server.starttls()
+    server.login(EMAIL_USER, EMAIL_PASSWORD)
+    server.sendmail(EMAIL_USER, to_email, msg.as_string())
+    server.quit()
 
 
 if __name__ == '__main__':
